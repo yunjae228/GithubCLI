@@ -1,6 +1,10 @@
 // @ts-check
 
-const fs = require('fs')
+require('dotenv').config()
+
+const { GITHUB_ACCESS_TOKEN } = process.env
+console.log('token: ', GITHUB_ACCESS_TOKEN)
+
 const { program } = require('commander')
 
 program.version('0.0.1')
