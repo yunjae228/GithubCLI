@@ -1,6 +1,6 @@
 #  Github 레포지토리 CLI 
 
-## commandline interface 지원해주는 라이브러리 사용
+commandline interface 지원해주는 라이브러리 사용
 
 ## Installer
 ```javascript
