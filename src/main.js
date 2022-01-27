@@ -26,7 +26,22 @@ program
   .command('list-bugs')
   .description('List issues with bug label')
   .action(async () => {
-    console.log('List bugs!')
+    const result = await octokit.rest.issues.listForRepo({
+      owner: 'yunjae228',
+      repo: 'GithubCLI',
+    })
+
+    const issuesWithBugLabel = result.data.filter(
+      (issue) =>
+        //@ts-ignore
+        issue.labels.find((label) => label.name === 'bug') !== undefined
+    )
+    const output = issuesWithBugLabel.map((issue) => ({
+      title: issue.title,
+      number: issue.number,
+    }))
+
+    console.log(output)
   })
 
 program
