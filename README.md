@@ -1,4 +1,4 @@
-#  Github 레포지토리 CLI 
+#  Github Repositories CLI 
 
 commandline interface 지원해주는 라이브러리 사용
 
@@ -24,5 +24,17 @@ console.log('pizza details:')
 if (options.small) console.log('- small pizza size')
 if (options.pizzaType) console.log(`- ${options.pizzaType}`)
 ```
-
+## 'me' commander
+```javascript
+program
+  .command('me')
+  .description('Check my profile')
+  .action(async () => {
+    const {
+      data: { login },
+    } = await octokit.rest.users.getAuthenticated()
+    console.log('Hello, %s', login)
+  })
+```
+octokit library 사용 , 저장소 접근
 ###   issue, pull request등의 관리
