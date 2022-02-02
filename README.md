@@ -37,4 +37,6 @@ program
   })
 ```
 octokit library 사용 , 저장소 접근
-###   issue, pull request등의 관리
+
+##   issue, pull request등의 관리
+pr을 검사해서, 만약 너무 diff가 크다면 `too-big`labels을 붙인다

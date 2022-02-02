@@ -29,6 +29,7 @@ program
     const result = await octokit.rest.issues.listForRepo({
       owner: 'yunjae228',
       repo: 'GithubCLI',
+      labels: 'bug',
     })
 
     const issuesWithBugLabel = result.data.filter(
