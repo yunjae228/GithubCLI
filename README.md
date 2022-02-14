@@ -40,3 +40,28 @@ octokit library 사용 , 저장소 접근
 
 ##   issue, pull request등의 관리
 pr을 검사해서, 만약 너무 diff가 크다면 `too-big`labels을 붙인다
+
+```javascript
+program
+  .command('check-prs')
+  .description('Check pull request status')
+  .action(async () => {
+    const result = await octokit.rest.pulls.list({
+      owner: OWNER,
+      repo: REPO,
+    })
+
+    const prsWithDiff = await Promise.all(
+      result.data.map(async (pr) => ({
+        number: pr.number,
+        compare: await octokit.rest.repos.compareCommits({
+          owner: OWNER,
+          repo: REPO,
+          base: pr.base.ref,
+          head: pr.head.ref,
+        }),
+      }))
+    )
+    console.log(prsWithDiff.map((diff) => diff.compare.data.files))
+  })
+```
