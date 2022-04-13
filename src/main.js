@@ -12,6 +12,8 @@ const prompts = require('prompts')
 
 const colors = require('colors')
 
+const marked = require('marked')
+
 program.version('0.0.1')
 
 const octokit = new Octokit({ auth: GITHUB_ACCESS_TOKEN })
@@ -120,6 +122,32 @@ program
           }
         })
     )
+  })
+program
+  .command('check-screenshots')
+  .description(
+    'Check if any issue is missing screenshot even if it has bug label on it'
+  )
+  .action(async () => {
+    const result = await octokit.rest.issues.listForRepo({
+      owner: OWNER,
+      repo: REPO,
+      labels: 'bugs',
+    })
+    const issuesWithBugLabel = result.data
+  })
+
+program
+  .command('parse-md')
+  .description('parsing markdown')
+  .action(() => {
+    const md = `
+    # heading
+  
+    [link][1]
+  
+    [1]: #heading "heading"
+  `
   })
 
 program.parseAsync()
